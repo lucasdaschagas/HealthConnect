@@ -87,8 +87,7 @@ public class Patient {
         if (!Objects.equals(name, patient.name)) return false;
         if (!Objects.equals(email, patient.email)) return false;
         if (!Objects.equals(birthDay, patient.birthDay)) return false;
-        if (!Objects.equals(disease, patient.disease)) return false;
-        return  (!Objects.equals(Exams, patient.Exams));
+        return (!Objects.equals(disease, patient.disease));
 
     }
 
@@ -99,7 +98,6 @@ public class Patient {
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (birthDay != null ? birthDay.hashCode() : 0);
         result = 31 * result + (disease != null ? disease.hashCode() : 0);
-        result = 31 * result + (Exams != null ? Exams.hashCode() : 0);
         return result;
     }
 }
