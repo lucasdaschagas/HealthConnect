@@ -2,6 +2,7 @@ package com.healthApi.demo.entity.pk;
 
 import com.healthApi.demo.entity.Exams;
 import com.healthApi.demo.entity.Medic;
+import com.healthApi.demo.entity.Patient;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -9,13 +10,26 @@ import jakarta.persistence.ManyToOne;
 import java.util.Objects;
 
 @Embeddable
-public class MedicExamPk {
+public class MedicPatientExamsPk {
+
     @ManyToOne
     @JoinColumn(name = "medic_id")
     private Medic medic;
     @ManyToOne
-    @JoinColumn(name = "exams_id")
+    @JoinColumn(name = "exam_id")
     private Exams exams;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
 
     public Medic getMedic() {
         return medic;
@@ -36,16 +50,13 @@ public class MedicExamPk {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof MedicExamPk that)) return false;
-
-        if (!Objects.equals(medic, that.medic)) return false;
-        return Objects.equals(exams, that.exams);
+        if (o == null || getClass() != o.getClass()) return false;
+        MedicPatientExamsPk that = (MedicPatientExamsPk) o;
+        return Objects.equals(medic, that.medic) && Objects.equals(exams, that.exams);
     }
 
     @Override
     public int hashCode() {
-        int result = medic != null ? medic.hashCode() : 0;
-        result = 31 * result + (exams != null ? exams.hashCode() : 0);
-        return result;
+        return Objects.hash(medic, exams);
     }
 }

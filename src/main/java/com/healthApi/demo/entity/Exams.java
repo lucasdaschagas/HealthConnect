@@ -2,7 +2,8 @@ package com.healthApi.demo.entity;
 
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -11,9 +12,11 @@ public class Exams {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String examName;
-    @OneToMany(mappedBy = "id.exams")
-    @Column(name = "responsible_medic")
-    private Set<MedicExam> medicExamSet;
-    private List<Patient> patients;
+    @Column(name = "exam_name", nullable = false)
+    private String name;
+    @Column(name = "exam_date", nullable = false)
+    private Date examDate;
+    @OneToMany(mappedBy = "id.medic")
+    @Column(name = "exams_by_medics")
+    private Set<MedicPatientExams> medics = new HashSet<>();
 }

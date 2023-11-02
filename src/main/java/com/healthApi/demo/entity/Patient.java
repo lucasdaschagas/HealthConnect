@@ -2,37 +2,23 @@ package com.healthApi.demo.entity;
 
 import jakarta.persistence.*;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "tb_patients")
+@Table(name = "tb_patient")
 public class Patient {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
     private String name;
-    @Column(nullable = false, unique = true)
     private String email;
-    @Column(nullable = false, name = "birth_date")
-    private String birthDay;
-    @Column(nullable = false)
     private String disease;
-    @Column(nullable = false)
-    @OneToMany(mappedBy = "id.exams")
-    private final Set<PatientExams> exams = new HashSet<>();
+    @Embedded
+    private Adress adress ;
 
-    @Column(name = "responsible_medics")
-    private final Set<Medic> responsibleMedics = new HashSet<>();
-
-    public Patient(String name, String email, String birthDay, String disease) {
-        this.name = name;
-        this.email = email;
-        this.birthDay = birthDay;
-        this.disease = disease;
-    }
-
-    public Patient(){}
+    @OneToMany(mappedBy = "id.patient")
+    @Column(name = "exams_to_make")
+    private Set<MedicPatientExams> exams = new HashSet<>();
 
     public String getName() {
         return name;
@@ -50,14 +36,6 @@ public class Patient {
         this.email = email;
     }
 
-    public String getBirthDay() {
-        return birthDay;
-    }
-
-    public void setBirthDay(String birthDay) {
-        this.birthDay = birthDay;
-    }
-
     public String getDisease() {
         return disease;
     }
@@ -66,38 +44,11 @@ public class Patient {
         this.disease = disease;
     }
 
-    public Set<PatientExams> getExams() {
-        return exams;
+    public Adress getAdress() {
+        return adress;
     }
 
-
-    public Long getId(){
-        return this.id;
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Patient)) return false;
-
-        Patient patient = (Patient) o;
-
-        if (!Objects.equals(id, patient.id)) return false;
-        if (!Objects.equals(name, patient.name)) return false;
-        if (!Objects.equals(email, patient.email)) return false;
-        if (!Objects.equals(birthDay, patient.birthDay)) return false;
-        return (!Objects.equals(disease, patient.disease));
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (birthDay != null ? birthDay.hashCode() : 0);
-        result = 31 * result + (disease != null ? disease.hashCode() : 0);
-        return result;
+    public void setAdress(Adress adress) {
+        this.adress = adress;
     }
 }
