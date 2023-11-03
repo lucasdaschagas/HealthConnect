@@ -36,7 +36,7 @@ public class MedicPatientExams {
     public void setExam(Exams exams){
         id.setExams(exams);
     }
- public Patient getPatient(){
+    public Patient getPatient(){
         return id.getPatient();
     }
     public void setPatient(Patient patient){

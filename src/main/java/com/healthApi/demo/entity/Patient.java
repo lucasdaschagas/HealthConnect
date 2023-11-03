@@ -16,6 +16,7 @@ public class Patient {
     @Embedded
     private Adress adress ;
 
+
     @OneToMany(mappedBy = "id.patient")
     @Column(name = "exams_to_make")
     private Set<MedicPatientExams> exams = new HashSet<>();
