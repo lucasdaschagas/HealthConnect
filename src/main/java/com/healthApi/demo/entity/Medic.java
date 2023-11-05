@@ -1,5 +1,6 @@
 package com.healthApi.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.healthApi.demo.enums.Roles;
 import jakarta.persistence.*;
 
@@ -20,17 +21,16 @@ public class Medic {
 
     @OneToMany(mappedBy = "id.medic")
     @Column(name = "exams_made")
-    private Set<MedicPatientExams> exams = new HashSet<>();
+    private Set<ProBound> exams = new HashSet<>();
 
 
     public Medic() {
     }
 
-    public Medic(Integer crm, String name, Roles role, Set<MedicPatientExams> exams) {
+    public Medic(Integer crm, String name, Roles role) {
         this.crm = crm;
         this.name = name;
         setRole(role);
-        this.exams = exams;
     }
 
     private void setRole(Roles role) {
@@ -60,15 +60,16 @@ public class Medic {
         this.name = name;
     }
 
+    @JsonIgnore
     public Set<Exams> getExams() {
         Set<Exams> examsSet = new HashSet<>();
-        for (MedicPatientExams x : exams){
+        for (ProBound x : exams){
             examsSet.add(x.getExam());
         }
         return examsSet;
     }
 
-    public void setExams(Set<MedicPatientExams> exams) {
+    public void setExams(Set<ProBound> exams) {
         this.exams = exams;
     }
 }

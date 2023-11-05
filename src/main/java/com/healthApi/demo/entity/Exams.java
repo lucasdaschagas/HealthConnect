@@ -1,11 +1,12 @@
 package com.healthApi.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -20,24 +21,29 @@ public class Exams {
     @Column(name = "exam_name", nullable = false)
     private String name;
 
-    @Column(name = "exam_date", nullable = false)
-    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
-    private LocalDateTime examDate;
+    @Column(name = "exam_date", nullable = false, columnDefinition = "VARCHAR")
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
+    private String examDate;
 
     @OneToMany(mappedBy = "id.exams")
     @Column(name = "exams_by_medics")
-    private Set<MedicPatientExams> medics = new HashSet<>();
+    private Set<ProBound> medics = new HashSet<>();
+
 
     public Exams() {
     }
 
     public Exams(String name, LocalDateTime examDate) {
         this.name = name;
-        this.examDate = examDate;
+        this.examDate = formatData(examDate);
 
     }
 
+    public String formatData(LocalDateTime data){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        return data.format(formatter);
+    }
     public String getName() {
         return name;
     }
@@ -46,22 +52,22 @@ public class Exams {
         this.name = name;
     }
 
-    public LocalDateTime getExamDate() {
+    public String getExamDate() {
         return examDate;
     }
 
     public void setExamDate(LocalDateTime examDate) {
-        this.examDate = examDate;
+        this.examDate = formatData(examDate);
     }
 
-    public Set<MedicPatientExams> getMedics() {
-        return medics;
+    @JsonIgnore
+    public Set<Medic> getMedics() {
+        Set<Medic> set = new HashSet<>();
+        for (ProBound x : medics){
+            set.add(x.getMedic());
+        }
+        return set;
     }
-
-    public void setMedics(Set<MedicPatientExams> medics) {
-        this.medics = medics;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

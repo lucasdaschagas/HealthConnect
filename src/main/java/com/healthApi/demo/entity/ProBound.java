@@ -1,7 +1,8 @@
 package com.healthApi.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.healthApi.demo.entity.pk.MedicPatientExamsPk;
+import com.healthApi.demo.entity.pk.ProBoundPk;
+import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -11,17 +12,18 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_medic_patient_exams")
-public class MedicPatientExams {
+public class ProBound {
 
     @EmbeddedId
-    private final MedicPatientExamsPk id = new MedicPatientExamsPk();
+    private final ProBoundPk id = new ProBoundPk();
     private Integer quantity;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd 'T' HH:mm:ss 'Z'" , timezone = "GMT")
+    @Column(name = "emission_date", nullable = false, columnDefinition = "TIMESTAMP")
     private Instant emission;
 
-    public MedicPatientExams(){}
+    public ProBound(){}
 
-    public MedicPatientExams(Exams exams,Patient patient, Medic medic, Integer quantity, Instant emission) {
+    public ProBound(Exams exams, Patient patient, Medic medic, Integer quantity, Instant emission) {
         id.setExams(exams);
         id.setPatient(patient);
         id.setMedic(medic);
@@ -70,7 +72,7 @@ public class MedicPatientExams {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MedicPatientExams that = (MedicPatientExams) o;
+        ProBound that = (ProBound) o;
         return Objects.equals(id, that.id) && Objects.equals(quantity, that.quantity)
                 && Objects.equals(emission, that.emission);
     }

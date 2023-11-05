@@ -10,7 +10,7 @@ import jakarta.persistence.ManyToOne;
 import java.util.Objects;
 
 @Embeddable
-public class MedicPatientExamsPk {
+public class ProBoundPk {
 
     @ManyToOne
     @JoinColumn(name = "medic_id")
@@ -51,7 +51,7 @@ public class MedicPatientExamsPk {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MedicPatientExamsPk that = (MedicPatientExamsPk) o;
+        ProBoundPk that = (ProBoundPk) o;
         return Objects.equals(medic, that.medic) && Objects.equals(exams, that.exams);
     }
 
