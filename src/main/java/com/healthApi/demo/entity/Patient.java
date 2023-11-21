@@ -1,6 +1,5 @@
 package com.healthApi.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
@@ -17,6 +16,7 @@ public class Patient {
     private Long id;
     private String name;
     @JsonProperty("e-mail")
+    @Column(name = "e-mail")
     private String email;
     private String disease;
     @Embedded
