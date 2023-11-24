@@ -33,7 +33,7 @@ public class Medic {
         setRole(role);
     }
 
-    private void setRole(Roles role) {
+    public void setRole(Roles role) {
         if (role != null) {
             this.role = role.getCode();
         }

@@ -3,7 +3,7 @@ package com.healthApi.demo.seedConfig;
 import com.healthApi.demo.entity.*;
 import com.healthApi.demo.enums.Roles;
 import com.healthApi.demo.repository.ExamRepository;
-import com.healthApi.demo.repository.MPERepository;
+import com.healthApi.demo.repository.PBRepository;
 import com.healthApi.demo.repository.MedicRepository;
 import com.healthApi.demo.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class SeedingMock implements CommandLineRunner {
     @Autowired
     private MedicRepository medicRepository;
     @Autowired
-    private MPERepository mpeRepository;
+    private PBRepository PBRepository;
     @Autowired
     private PatientRepository patientRepository;
     @Override
@@ -46,7 +46,7 @@ public class SeedingMock implements CommandLineRunner {
         ProBound bound = new ProBound(exams,patient,medic,3, Instant.parse("2023-06-20T19:53:07Z"));
 
 
-        mpeRepository.save(bound);
+        PBRepository.save(bound);
 
     }
 }
