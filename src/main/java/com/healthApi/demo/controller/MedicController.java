@@ -1,4 +1,4 @@
 package com.healthApi.demo.controller;
 
-public class PatientController {
+public class MedicController {
 }

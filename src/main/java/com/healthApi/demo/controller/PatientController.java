@@ -1,2 +1,4 @@
-package com.healthApi.demo.controller;public class PatientController {
+package com.healthApi.demo.controller;
+
+public class PatientController {
 }
