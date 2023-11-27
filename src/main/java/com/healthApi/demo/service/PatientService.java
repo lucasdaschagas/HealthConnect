@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 public class PatientService {
@@ -15,28 +16,28 @@ public class PatientService {
     private final Logger logger = Logger.getLogger(PatientService.class.getName());
 
 
-    private Patient getPatientByID(Long id) {
+    public Patient getPatientByID(Long id) {
         return repository.findById(id).orElseThrow(() ->
                 new ProductNotFoundException("Product do not exist, please, try another id"));
     }
 
-    private Page<Patient> findAll(Pageable pageable) {
+    public List<Patient> findAll() {
         logger.info("Finding all Patient");
 
-        return repository.findAll(pageable);
+        return repository.findAll();
     }
 
-    private Patient createPatient(Patient Patient) {
+    public Patient createPatient(Patient Patient) {
         return repository.save(Patient);
     }
 
-    private Patient updatePatient(Long id, Patient Patient) {
+    public Patient updatePatient(Long id, Patient Patient) {
         Patient entity = repository.getReferenceById(id);
         updateData(entity, Patient);
         return entity;
     }
 
-    private void deletePatient(Long id) {
+    public void deletePatient(Long id) {
         repository.deleteById(id);
     }
 

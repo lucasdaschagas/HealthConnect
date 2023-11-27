@@ -4,10 +4,11 @@ import com.healthApi.demo.entity.Exams;
 import com.healthApi.demo.exception.ProductNotFoundException;
 import com.healthApi.demo.repository.ExamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.logging.Logger;
 
 @Service
@@ -15,32 +16,36 @@ public class ExamsService {
 
     @Autowired
     private ExamRepository repository;
-    private final Logger logger = Logger.getLogger(ExamsService.class.getName());
+    public final Logger logger = Logger.getLogger(ExamsService.class.getName());
 
 
-
-    private Exams getExamByID(Long id) {
-        return repository.findById(id).orElseThrow(() ->
+    @Transactional(readOnly = true)
+    public Exams getExamByID(Long id) {
+        Exams exams = repository.findById(id).orElseThrow(() ->
                 new ProductNotFoundException("Product do not exist, please, try another id"));
+
+        return exams;
     }
 
-    private Page<Exams> findAll(Pageable pageable){
+    @Transactional(readOnly = true)
+    public List<Exams> findAll(){
         logger.info("Finding all exams");
 
-        return repository.findAll(pageable);
+        return repository.findAll();
+    }
+    @Transactional
+    public void createExam(Exams exams){
+        repository.save(exams);
     }
 
-    private Exams createExam(Exams exams){
-        return repository.save(exams);
-    }
-
-    private Exams updateExam(Long id, Exams exams){
+    @Transactional
+    public Exams updateExam(Long id, Exams exams){
         Exams entity = repository.getReferenceById(id);
         updateData(entity,exams);
         return entity;
     }
-
-    private void deleteExam(Long id){
+    @Transactional
+    public void deleteExam(Long id){
         repository.deleteById(id);
     }
 

@@ -5,6 +5,8 @@ import com.healthApi.demo.repository.MedicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 import java.util.logging.Logger;
 
 public class MedicService {
@@ -13,28 +15,28 @@ public class MedicService {
     private final Logger logger = Logger.getLogger(MedicService.class.getName());
 
 
-    private Medic getMedicByID(Long id) {
+    public Medic getMedicByID(Long id) {
         return repository.findById(id).orElseThrow(() ->
                 new ProductNotFoundException("Product do not exist, please, try another id"));
     }
 
-    private Page<Medic> findAll(Pageable pageable) {
+    public List<Medic> findAll() {
         logger.info("Finding all Medic");
 
-        return repository.findAll(pageable);
+        return repository.findAll();
     }
 
-    private Medic createMedic(Medic Medic) {
+    public Medic createMedic(Medic Medic) {
         return repository.save(Medic);
     }
 
-    private Medic updateMedic(Long id, Medic Medic) {
+    public Medic updateMedic(Long id, Medic Medic) {
         Medic entity = repository.getReferenceById(id);
         updateData(entity, Medic);
         return entity;
     }
 
-    private void deleteMedic(Long id) {
+    public void deleteMedic(Long id) {
         repository.deleteById(id);
     }
 
