@@ -18,7 +18,7 @@ public class Exams {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "exam_name", nullable = false)
+    @Column(name = "exam_name", nullable = false,unique = true)
     private String name;
 
     @Column(name = "exam_date", nullable = false, columnDefinition = "VARCHAR")
