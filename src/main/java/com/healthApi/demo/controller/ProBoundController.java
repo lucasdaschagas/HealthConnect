@@ -14,7 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
     @RestController
-    @RequestMapping("/proBound")
+    @RequestMapping("/probound")
     public class ProBoundController {
         @Autowired
         private ProBoundService proBoundService;
@@ -35,10 +35,10 @@ import java.util.List;
             }
         }
 
-        @GetMapping("/{id}")
-        public ResponseEntity<ProBound> findProBoundById(@PathVariable(value = "id") Long id){
+        @GetMapping("/{medicId}")
+        public ResponseEntity<ProBound> findProBoundByMedicId(@PathVariable Long medicId){
             try {
-                ProBound proBound = proBoundService.getProBoundByID(id);
+                ProBound proBound = proBoundService.getProBoundByID(medicId);
                 return ResponseEntity.ok().body(proBound);
             }catch (EntityNotFoundException e){
                 throw new ProBoundNotFoundException("Could not find proBound, please check id again");
@@ -55,26 +55,26 @@ import java.util.List;
             }
         }
 
-        @PutMapping("/update/{id}")
-        public ResponseEntity<ProBound> updateProBound(@PathVariable Long id, @RequestBody ProBound proBound){
-            try {
-                ProBound proBound1 = proBoundService.updateProBound(id, proBound);
-                return ResponseEntity.ok().body(proBound1);
-            }catch (EntityNotFoundException e){
-                throw new ProBoundNotFoundException("Could not find list of proBound, please check id again");
-            }
-
-        }
-
-        @DeleteMapping("/{id}")
-        public ResponseEntity deleteProBoundById(@PathVariable(value = "id") Long id){
-            try {
-                proBoundService.deleteProBound(id);
-                return ResponseEntity.noContent().build();
-
-            }catch (EmptyResultDataAccessException e){
-                throw new ProBoundNotFoundException("Could not find proBound, please check id again");
-            }
-        }
+//        @PutMapping("/update/{id}")
+//        public ResponseEntity<ProBound> updateProBound(@PathVariable Long id, @RequestBody ProBound proBound){
+//            try {
+//                ProBound proBound1 = proBoundService.updateProBound(id, proBound);
+//                return ResponseEntity.ok().body(proBound1);
+//            }catch (EntityNotFoundException e){
+//                throw new ProBoundNotFoundException("Could not find list of proBound, please check id again");
+//            }
+//
+//        }
+//
+//        @DeleteMapping("/{id}")
+//        public ResponseEntity deleteProBoundById(@PathVariable(value = "id") Long id){
+//            try {
+//                proBoundService.deleteProBound(id);
+//                return ResponseEntity.noContent().build();
+//
+//            }catch (EmptyResultDataAccessException e){
+//                throw new ProBoundNotFoundException("Could not find proBound, please check id again");
+//            }
+//        }
 
     }

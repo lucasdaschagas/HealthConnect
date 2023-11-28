@@ -21,7 +21,7 @@ public class Medic {
     @Column(nullable = false)
     private Integer role;
 
-    @OneToMany(mappedBy = "id.medic")
+    @OneToMany(mappedBy = "idPk.medic")
     @Column(name = "exams_made")
     private Set<ProBound> exams = new HashSet<>();
 

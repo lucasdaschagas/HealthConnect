@@ -35,7 +35,7 @@ public class SeedingMock implements CommandLineRunner {
         Patient patient = new Patient("Synin Black","crowofodin@gmail.com","Diesel Malfunction", adress);
 
         Medic medic = new Medic(123456, "Odin", Roles.ORTHOPEDICS);
-        Medic medic2 = new Medic(123456, "Synin", Roles.CLINICAL);
+        Medic medic2 = new Medic(1234567, "Synin", Roles.CLINICAL);
         List<Medic> list = new ArrayList<>();
         list.add(medic2);
         list.add(medic);
@@ -49,7 +49,7 @@ public class SeedingMock implements CommandLineRunner {
         patientRepository.save(patient);
 
         ProBound bound = new ProBound(exams,patient,medic,3, Instant.parse("2023-06-20T19:53:07Z"));
-
+        bound.setIdentification(1L);
 
         PBRepository.save(bound);
 

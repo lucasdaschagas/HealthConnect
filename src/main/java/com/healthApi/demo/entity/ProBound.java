@@ -2,20 +2,18 @@ package com.healthApi.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.healthApi.demo.entity.pk.ProBoundPk;
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.Instant;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tb_medic_patient_exams")
+@Table(name = "tb_ProBounds")
 public class ProBound {
-
+    @Column(unique = true)
+    private Long identification;
     @EmbeddedId
-    private final ProBoundPk id = new ProBoundPk();
+    private final ProBoundPk idPk = new ProBoundPk();
     private Integer quantity;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd 'T' HH:mm:ss 'Z'" , timezone = "GMT")
     @Column(name = "emission_date", nullable = false, columnDefinition = "TIMESTAMP")
@@ -24,35 +22,42 @@ public class ProBound {
     public ProBound(){}
 
     public ProBound(Exams exams, Patient patient, Medic medic, Integer quantity, Instant emission) {
-        id.setExams(exams);
-        id.setPatient(patient);
-        id.setMedic(medic);
+
+        idPk.setExams(exams);
+        idPk.setPatient(patient);
+        idPk.setMedic(medic);
         this.quantity = quantity;
         this.emission = emission;
     }
 
 
+    public Long getIdentification(){
+        return this.identification;
+    }
+    public void setIdentification(Long identification){
+        this.identification=identification;
+    }
     public ProBoundPk getId() {
-        return id;
+        return idPk;
     }
     public Exams getExam(){
-        return id.getExams();
+        return idPk.getExams();
     }
     public void setExam(Exams exams){
-        id.setExams(exams);
+        idPk.setExams(exams);
     }
     public Patient getPatient(){
-        return id.getPatient();
+        return idPk.getPatient();
     }
     public void setPatient(Patient patient){
-        id.setPatient(patient);
+        idPk.setPatient(patient);
     }
 
     public Medic getMedic(){
-        return id.getMedic();
+        return idPk.getMedic();
     }
     public void setMedic(Medic medic){
-        id.setMedic(medic);
+        idPk.setMedic(medic);
     }
 
     public Integer getQuantity() {
@@ -76,12 +81,12 @@ public class ProBound {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProBound that = (ProBound) o;
-        return Objects.equals(id, that.id) && Objects.equals(quantity, that.quantity)
+        return Objects.equals(idPk, that.idPk) && Objects.equals(quantity, that.quantity)
                 && Objects.equals(emission, that.emission);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, quantity, emission);
+        return Objects.hash(idPk, quantity, emission);
     }
 }

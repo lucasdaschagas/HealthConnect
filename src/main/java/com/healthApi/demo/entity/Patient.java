@@ -26,7 +26,7 @@ public class Patient {
     private Adress adress ;
 
 
-    @OneToMany(mappedBy = "id.patient")
+    @OneToMany(mappedBy = "idPk.patient")
     @Column(name = "exams_to_make")
     private Set<ProBound> exams = new HashSet<>();
 

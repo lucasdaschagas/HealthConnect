@@ -11,7 +11,6 @@ import java.util.Objects;
 
 @Embeddable
 public class ProBoundPk {
-
     @ManyToOne
     @JoinColumn(name = "medic_id")
     private Medic medic;
@@ -22,6 +21,7 @@ public class ProBoundPk {
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private Patient patient;
+
 
     public Patient getPatient() {
         return patient;
@@ -59,4 +59,6 @@ public class ProBoundPk {
     public int hashCode() {
         return Objects.hash(medic, exams);
     }
+
+
 }

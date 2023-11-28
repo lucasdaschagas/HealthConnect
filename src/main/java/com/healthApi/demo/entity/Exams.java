@@ -26,7 +26,7 @@ public class Exams {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private String examDate;
 
-    @OneToMany(mappedBy = "id.exams")
+    @OneToMany(mappedBy = "idPk.exams")
     @Column(name = "exams_by_medics")
     private Set<ProBound> medics = new HashSet<>();
 
