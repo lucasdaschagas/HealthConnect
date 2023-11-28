@@ -13,6 +13,8 @@ import org.springframework.context.annotation.Profile;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @Profile("test")
@@ -33,14 +35,17 @@ public class SeedingMock implements CommandLineRunner {
         Patient patient = new Patient("Synin Black","crowofodin@gmail.com","Diesel Malfunction", adress);
 
         Medic medic = new Medic(123456, "Odin", Roles.ORTHOPEDICS);
-
+        Medic medic2 = new Medic(123456, "Synin", Roles.CLINICAL);
+        List<Medic> list = new ArrayList<>();
+        list.add(medic2);
+        list.add(medic);
 
         LocalDateTime localDateTime =  LocalDateTime.of(2021,05,03,15,23);
         Exams exams = new Exams("Diesel Verification",localDateTime);
 
 
         examRepository.save(exams);
-        medicRepository.save(medic);
+        medicRepository.saveAll(list);
         patientRepository.save(patient);
 
         ProBound bound = new ProBound(exams,patient,medic,3, Instant.parse("2023-06-20T19:53:07Z"));

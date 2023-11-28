@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -14,12 +15,14 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true)
     private String name;
     @JsonProperty("e-mail")
-    @Column(name = "e-mail")
+    @Column(name = "e-mail",unique = true)
     private String email;
     private String disease;
     @Embedded
+    @Column(unique = true)
     private Adress adress ;
 
 
@@ -35,6 +38,10 @@ public class Patient {
     }
 
     public Patient() {
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
@@ -76,5 +83,18 @@ public class Patient {
             examsSet.add(x.getExam());
         }
         return examsSet;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Patient patient = (Patient) o;
+        return Objects.equals(id, patient.id) && Objects.equals(name, patient.name) && Objects.equals(email, patient.email) && Objects.equals(disease, patient.disease) && Objects.equals(adress, patient.adress);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, email, disease, adress);
     }
 }

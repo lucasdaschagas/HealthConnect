@@ -32,6 +32,9 @@ public class ProBound {
     }
 
 
+    public ProBoundPk getId() {
+        return id;
+    }
     public Exams getExam(){
         return id.getExams();
     }

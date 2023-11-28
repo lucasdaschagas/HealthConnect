@@ -23,7 +23,7 @@ public class Exams {
 
     @Column(name = "exam_date", nullable = false, columnDefinition = "VARCHAR")
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private String examDate;
 
     @OneToMany(mappedBy = "id.exams")
@@ -61,8 +61,8 @@ public class Exams {
         return examDate;
     }
 
-    public void setExamDate(LocalDateTime examDate) {
-        this.examDate = formatData(examDate);
+    public void setExamDate(String examDate) {
+        this.examDate = examDate;
     }
 
     @JsonIgnore

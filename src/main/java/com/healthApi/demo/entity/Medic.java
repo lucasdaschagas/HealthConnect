@@ -1,6 +1,7 @@
 package com.healthApi.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.healthApi.demo.enums.Roles;
 import jakarta.persistence.*;
 
@@ -17,6 +18,7 @@ public class Medic {
     private Integer crm;
     @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private Integer role;
 
     @OneToMany(mappedBy = "id.medic")
@@ -33,10 +35,15 @@ public class Medic {
         setRole(role);
     }
 
+
     public void setRole(Roles role) {
         if (role != null) {
             this.role = role.getCode();
         }
+    }
+
+    public Long getId() {
+        return id;
     }
     public String getName() {
         return name;
@@ -49,12 +56,9 @@ public class Medic {
     }
 
 
-
     public void setCrm(Integer crm) {
         this.crm = crm;
     }
-
-
 
     public void setName(String name) {
         this.name = name;

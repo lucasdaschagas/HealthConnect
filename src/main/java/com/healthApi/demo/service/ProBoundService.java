@@ -8,14 +8,15 @@ import com.healthApi.demo.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.logging.Logger;
-
+@Service
 public class ProBoundService {
     @Autowired
     private PBRepository repository;
-    private final Logger logger = Logger.getLogger(PatientService.class.getName());
+    private final Logger logger = Logger.getLogger(ProBound.class.getName());
 
 
     public ProBound getProBoundByID(Long id) {
@@ -24,7 +25,7 @@ public class ProBoundService {
     }
 
     public List<ProBound> findAll() {
-        logger.info("Finding all Patient");
+        logger.info("Finding all Bounds");
 
         return repository.findAll();
     }
@@ -36,7 +37,7 @@ public class ProBoundService {
     public ProBound updateProBound(Long id, ProBound proBound) {
         ProBound entity = repository.getReferenceById(id);
         updateData(entity, proBound);
-        return entity;
+        return repository.save(entity);
     }
 
     public void deleteProBound(Long id) {

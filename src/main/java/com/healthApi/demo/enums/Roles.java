@@ -1,5 +1,9 @@
 package com.healthApi.demo.enums;
 
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum Roles {
     CARDIOLOGY(1),
     PHYSIOLOGIST(2),
@@ -14,9 +18,11 @@ public enum Roles {
         this.code=code;
     }
 
-    public int getCode(){
+
+    public int getCode() {
         return code;
     }
+
 
     public static Roles valueOf(int code){
         for(Roles value : Roles.values()){

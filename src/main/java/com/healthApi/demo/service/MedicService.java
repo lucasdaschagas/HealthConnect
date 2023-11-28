@@ -3,12 +3,11 @@ import com.healthApi.demo.entity.Medic;
 import com.healthApi.demo.exception.ProductNotFoundException;
 import com.healthApi.demo.repository.MedicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.logging.Logger;
-
+@Service
 public class MedicService {
     @Autowired
     private MedicRepository repository;
@@ -27,13 +26,17 @@ public class MedicService {
     }
 
     public Medic createMedic(Medic Medic) {
-        return repository.save(Medic);
+        if (Medic != null) {
+            return repository.save(Medic);
+        }
+        else {return null;}
     }
+
 
     public Medic updateMedic(Long id, Medic Medic) {
         Medic entity = repository.getReferenceById(id);
         updateData(entity, Medic);
-        return entity;
+        return repository.save(entity);
     }
 
     public void deleteMedic(Long id) {

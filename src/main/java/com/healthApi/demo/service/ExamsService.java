@@ -42,7 +42,7 @@ public class ExamsService {
     public Exams updateExam(Long id, Exams exams){
         Exams entity = repository.getReferenceById(id);
         updateData(entity,exams);
-        return entity;
+        return repository.save(entity);
     }
     @Transactional
     public void deleteExam(Long id){
@@ -51,7 +51,7 @@ public class ExamsService {
 
     private void updateData(Exams entity, Exams obj) {
         entity.setName(obj.getName());
-        entity.setExamDate(LocalDateTime.parse(obj.getExamDate()));
+        entity.setExamDate(obj.getExamDate());
     }
 
 
