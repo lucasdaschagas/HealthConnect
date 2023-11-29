@@ -1,6 +1,7 @@
 package com.healthApi.demo.entity.pk;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.healthApi.demo.entity.Exams;
 import com.healthApi.demo.entity.Medic;
 import com.healthApi.demo.entity.Patient;
