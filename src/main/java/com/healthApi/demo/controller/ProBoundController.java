@@ -1,17 +1,18 @@
 package com.healthApi.demo.controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.healthApi.demo.entity.ProBound;
 import com.healthApi.demo.exception.ProBoundNotCreatedException;
 import com.healthApi.demo.exception.ProBoundNotFoundException;
 import com.healthApi.demo.service.ProBoundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+
 import java.util.List;
     @RestController
     @RequestMapping("/probound")
@@ -24,11 +25,14 @@ import java.util.List;
         }
 
         @PostMapping("/save")
-        public ResponseEntity<ProBound> saveProBound(@RequestBody ProBound proBound){
+        public ResponseEntity<ProBound> saveProBound(@RequestParam Long medicID,
+                                                     @RequestParam Long patientId,
+                                                     @RequestParam Long examId,
+                                                     @RequestParam Integer quantity) {
             try{
-                proBoundService.createProBound(proBound);
-                URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(proBound.getId()).toUri();
-                return ResponseEntity.created(uri).body(proBound);
+               ProBound bound = proBoundService.createProBound(medicID,patientId,examId,quantity);
+                URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(bound.getIdentification()).toUri();
+                return ResponseEntity.created(uri).body(bound);
 
             }catch (RuntimeException e){
                 throw new ProBoundNotCreatedException("Could not create proBound, please check the payload again");

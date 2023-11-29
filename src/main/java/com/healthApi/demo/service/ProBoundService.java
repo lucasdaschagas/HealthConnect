@@ -1,9 +1,11 @@
 package com.healthApi.demo.service;
 
+import com.healthApi.demo.entity.Exams;
 import com.healthApi.demo.entity.Medic;
 import com.healthApi.demo.entity.Patient;
 import com.healthApi.demo.entity.ProBound;
 import com.healthApi.demo.exception.ProductNotFoundException;
+import com.healthApi.demo.repository.ExamRepository;
 import com.healthApi.demo.repository.MedicRepository;
 import com.healthApi.demo.repository.PBRepository;
 import com.healthApi.demo.repository.PatientRepository;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.logging.Logger;
 @Service
@@ -20,6 +23,10 @@ public class ProBoundService {
     private PBRepository repository;
     @Autowired
     private MedicRepository medicRepository;
+    @Autowired
+    private PatientRepository patientRepository;
+    @Autowired
+    private ExamRepository examRepository;
     private final Logger logger = Logger.getLogger(ProBound.class.getName());
 
 
@@ -35,8 +42,15 @@ public class ProBoundService {
         return repository.findAll();
     }
 
-    public ProBound createProBound(ProBound proBound) {
+    public ProBound createProBound(Long medicID, Long patientId, Long examId, Integer quantity){
         Long lastIdentification = repository.findByMaxIdentification();
+        Medic medic = medicRepository.findById(medicID).get();
+        Patient patient = patientRepository.findById(patientId).get();
+        Exams exams = examRepository.findById(examId).get();
+
+        Instant emission = Instant.now();
+
+        ProBound proBound = new ProBound(exams,patient,medic,quantity,emission);
         if (lastIdentification == null) {
             proBound.setIdentification(1L);
         } else {

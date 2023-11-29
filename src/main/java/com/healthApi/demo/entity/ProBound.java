@@ -2,6 +2,7 @@ package com.healthApi.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.healthApi.demo.entity.pk.ProBoundPk;
 import jakarta.persistence.*;
 
@@ -38,6 +39,7 @@ public class ProBound {
     public void setIdentification(Long identification){
         this.identification=identification;
     }
+
     public ProBoundPk getId() {
         return idPk;
     }
