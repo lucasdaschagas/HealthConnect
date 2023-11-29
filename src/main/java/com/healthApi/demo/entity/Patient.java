@@ -1,5 +1,6 @@
 package com.healthApi.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
@@ -76,7 +77,7 @@ public class Patient {
         this.adress = adress;
     }
 
-
+    @JsonIgnore
     public Set<Exams> getExams() {
         Set<Exams> examsSet = new HashSet<>();
         for (ProBound x : exams){

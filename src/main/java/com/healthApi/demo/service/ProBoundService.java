@@ -25,6 +25,7 @@ public class ProBoundService {
 
     public ProBound getProBoundByID(Long id) {
 //        Long idMedic = bound.getMedic().getId();
+
         return repository.findBoundByMedicId(id);
     }
 
@@ -51,9 +52,9 @@ public class ProBoundService {
 //        return repository.save(entity);
 //    }
 //
-//    public void deleteProBound(Long id) {
-//        repository.deleteById(id);
-//    }
+    public void deleteProBound(Long id) {
+        repository.deleteByIdentification(id);
+    }
 
     private void updateData(ProBound entity, ProBound obj) {
     entity.setEmission(obj.getEmission());

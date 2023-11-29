@@ -1,5 +1,6 @@
 package com.healthApi.demo.entity.pk;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.healthApi.demo.entity.Exams;
 import com.healthApi.demo.entity.Medic;
 import com.healthApi.demo.entity.Patient;
@@ -38,6 +39,7 @@ public class ProBoundPk {
     public void setMedic(Medic medic) {
         this.medic = medic;
     }
+
 
     public Exams getExams() {
         return exams;

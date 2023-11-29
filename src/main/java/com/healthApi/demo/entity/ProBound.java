@@ -1,6 +1,7 @@
 package com.healthApi.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.healthApi.demo.entity.pk.ProBoundPk;
 import jakarta.persistence.*;
 
@@ -40,19 +41,21 @@ public class ProBound {
     public ProBoundPk getId() {
         return idPk;
     }
+    @JsonIgnore
     public Exams getExam(){
         return idPk.getExams();
     }
     public void setExam(Exams exams){
         idPk.setExams(exams);
     }
+    @JsonIgnore
     public Patient getPatient(){
         return idPk.getPatient();
     }
     public void setPatient(Patient patient){
         idPk.setPatient(patient);
     }
-
+    @JsonIgnore
     public Medic getMedic(){
         return idPk.getMedic();
     }
