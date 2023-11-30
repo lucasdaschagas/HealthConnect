@@ -36,9 +36,12 @@ public class Medic {
     }
 
 
-    public void setRole(Roles role) {
-        if (role != null) {
-            this.role = role.getCode();
+    public void setRole(Object role) {
+        if (role instanceof Roles) {
+            this.role = ((Roles) role).getCode();
+        } else if (role instanceof String) {
+            Roles foundRoles = Roles.fromString((String) role);
+            this.role = foundRoles.getCode();
         }
     }
 

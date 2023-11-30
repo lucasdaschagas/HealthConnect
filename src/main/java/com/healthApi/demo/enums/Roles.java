@@ -35,6 +35,13 @@ public enum Roles {
     }
 
 
-
+    public static Roles fromString(String value) {
+        for (Roles role : Roles.values()) {
+            if (role.name().equalsIgnoreCase(value)) {
+                return role;
+            }
+        }
+        throw new IllegalArgumentException("Invalid role: " + value);
+    }
 }
 
